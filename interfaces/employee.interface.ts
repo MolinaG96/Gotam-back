@@ -1,5 +1,3 @@
-import type IArea from './area.interface'
-
 export default interface IEmployee {
     _id: string
     name: string
@@ -7,5 +5,4 @@ export default interface IEmployee {
     birthday: string
     developer: boolean
     description: string
-    area_id: IArea
 }
