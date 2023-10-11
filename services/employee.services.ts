@@ -8,7 +8,8 @@ const employeeServices = {
             await newEmployee.save()
             return newEmployee
         } catch (error) {
-            return console.error('create Employee service error', error)
+            console.error('create Employee service error', error)
+            throw error
         }
     },
 }

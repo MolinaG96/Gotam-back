@@ -8,7 +8,8 @@ const userServices = {
             await newUser.save()
             return newUser
         } catch (error) {
-            return console.error('createUser service error', error)
+            console.error('createUser service error', error)
+            throw error
         }
     },
 }

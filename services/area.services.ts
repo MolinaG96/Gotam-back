@@ -8,7 +8,8 @@ const areaServices = {
             await newArea.save()
             return newArea
         } catch (error) {
-            return console.error('createArea service error', error)
+            console.error('createArea service error', error)
+            throw error
         }
     },
 }
