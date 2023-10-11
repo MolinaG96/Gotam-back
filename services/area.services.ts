@@ -1,5 +1,4 @@
 import Area from '../models/area'
-// import type IArea from 'interfaces/area.interface'
 
 const areaServices = {
     createArea: async (area: string) => {
@@ -9,6 +8,54 @@ const areaServices = {
             return newArea
         } catch (error) {
             console.error('createArea service error', error)
+            throw error
+        }
+    },
+    editArea: async (newArea: string, id: string) => {
+        try {
+            const editedArea = await Area.findOneAndUpdate(
+                { _id: id },
+                { area: newArea },
+                {
+                    new: true,
+                    runValidators: true,
+                }
+            )
+            return editedArea
+        } catch (error) {
+            console.error('editArea service error', error)
+            throw error
+        }
+    },
+    deleteArea: async (id: string) => {
+        try {
+            const area = await Area.findOne({ _id: id })
+            if (area !== null) {
+                const result = await Area.deleteOne({ _id: id })
+                return result.deletedCount !== 0
+            } else {
+                throw new Error('Area not found')
+            }
+        } catch (error) {
+            console.error('deleteArea service error', error)
+            throw error
+        }
+    },
+    getAllAreas: async () => {
+        try {
+            const areas = await Area.find()
+            return areas
+        } catch (error) {
+            console.error('getAllAreas service error', error)
+            throw error
+        }
+    },
+    getAreaById: async (id: string) => {
+        try {
+            const areas = await Area.find({ _id: id })
+            return areas
+        } catch (error) {
+            console.error('getAreaById service error', error)
             throw error
         }
     },
