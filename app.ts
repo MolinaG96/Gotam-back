@@ -2,6 +2,7 @@ import express from 'express'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import { connectDB } from './config/db'
+import router from './routes'
 
 const app = express()
 
@@ -13,6 +14,7 @@ app.use(
         credentials: true,
     })
 )
+app.use('/', router)
 
 connectDB()
     .then(() => {
