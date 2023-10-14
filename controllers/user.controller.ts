@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express'
 import userServices from '../services/user.services'
-import User from 'models/user'
-import type IToken from 'interfaces/token.interface'
+import User from '../models/user'
+import type IToken from '../interfaces/token.interface'
 
 const userController = {
     signup_user: async (req: Request, res: Response) => {
@@ -23,9 +23,9 @@ const userController = {
 
             if (!isValid) throw new Error('Incorrect data')
 
-            const { _id, email } = driver
+            const { _id, name, email } = driver
 
-            const data: IToken = { _id, email }
+            const data: IToken = { _id, name, email }
             const token = await userServices.newToken(data)
 
             res.status(200).json({

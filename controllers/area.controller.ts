@@ -14,8 +14,9 @@ const areaController = {
     edit_area: async (req: Request, res: Response) => {
         try {
             const areaEdited = await areaServices.editArea(
+                req.body._id,
                 req.body.area,
-                req.body.id
+                req.body.employees
             )
             if (areaEdited === null) throw new Error('Error editing area')
             res.status(201).send(areaEdited)
