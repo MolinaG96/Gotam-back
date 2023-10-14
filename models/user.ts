@@ -3,6 +3,7 @@ import mongoose, { type CallbackError, Schema } from 'mongoose'
 import bcrypt from 'bcrypt'
 
 const userSchema: Schema = new Schema({
+    name: { type: String, require: true },
     email: {
         type: String,
         required: true,

@@ -1,3 +1,4 @@
+import type IEmployee from 'interfaces/employee.interface'
 import Area from '../models/area'
 
 const areaServices = {
@@ -11,11 +12,11 @@ const areaServices = {
             throw error
         }
     },
-    editArea: async (newArea: string, id: string) => {
+    editArea: async (id: string, newArea: string, employees: IEmployee[]) => {
         try {
             const editedArea = await Area.findOneAndUpdate(
                 { _id: id },
-                { area: newArea },
+                { area: newArea, $push: { employees: { $each: employees } } },
                 {
                     new: true,
                     runValidators: true,
