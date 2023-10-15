@@ -1,3 +1,4 @@
+import Area from '../models/area'
 import Employee from '../models/employee'
 import type IEmployee from 'interfaces/employee.interface'
 
@@ -61,12 +62,16 @@ const employeeServices = {
             throw error
         }
     },
-    getEmployeesByArea: async (area: string) => {
+    getAllEmployeesByArea: async () => {
         try {
-            const employees = await Employee.find({ area: area.toLowerCase() })
-            return employees
+            const areas = await Area.find().populate('employees')
+            const areasWithEmployees = areas.filter(
+                (area) => area.employees.length > 0
+            )
+
+            return areasWithEmployees
         } catch (error) {
-            console.error('getEmployeesByArea service error', error)
+            console.error('getAllEmployeesByArea service error', error)
             throw error
         }
     },

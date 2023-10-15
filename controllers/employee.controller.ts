@@ -60,11 +60,10 @@ const employeeController = {
             res.sendStatus(500)
         }
     },
-    get_employees_by_area: async (req: Request, res: Response) => {
+    get_all_employees_by_area: async (_req: Request, res: Response) => {
         try {
-            const employeesByArea = await employeeServices.getEmployeesByArea(
-                req.params.area
-            )
+            const employeesByArea =
+                await employeeServices.getAllEmployeesByArea()
             res.status(200).send(employeesByArea)
         } catch (error) {
             console.error('get employees by area controller error', error)
