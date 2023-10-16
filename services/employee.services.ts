@@ -1,3 +1,4 @@
+import type IArea from 'interfaces/area.interface'
 import Area from '../models/area'
 import Employee from '../models/employee'
 import type IEmployee from 'interfaces/employee.interface'
@@ -13,8 +14,29 @@ const employeeServices = {
             throw error
         }
     },
-    editEmployee: async (id: string, data: object) => {
+    editEmployee: async (
+        id: string,
+        data: object,
+        newArea: string,
+        oldArea: string
+    ) => {
         try {
+            if (newArea !== oldArea) {
+                const editOldArea = await Area.findOne({ area: oldArea })
+                if (editOldArea != null) {
+                    editOldArea.employees = editOldArea.employees.filter(
+                        (employee) => employee._id.toString() !== id
+                    )
+                    await editOldArea.save()
+
+                    await Area.findOneAndUpdate(
+                        { area: newArea },
+                        { $push: { employees: id } },
+                        { new: true }
+                    )
+                }
+            }
+
             const updatedEmployee = await Employee.findOneAndUpdate(
                 { _id: id },
                 { $set: data },
@@ -30,8 +52,16 @@ const employeeServices = {
             throw error
         }
     },
-    deleteEmployee: async (id: string) => {
+    deleteEmployee: async (id: string, area: IArea) => {
         try {
+            const employeeArea = await Area.findOne({ _id: area._id })
+            if (employeeArea != null) {
+                employeeArea.employees = employeeArea.employees.filter(
+                    (employee) => employee._id.toString() !== id
+                )
+
+                await employeeArea.save()
+            }
             const employee = await Employee.findOne({ _id: id })
             if (employee !== null) {
                 const result = await Employee.deleteOne({ _id: id })
@@ -55,7 +85,8 @@ const employeeServices = {
     },
     getEmployeeById: async (id: string) => {
         try {
-            const employee = await Employee.find({ _id: id })
+            const employee = await Employee.findOne({ _id: id })
+
             return employee
         } catch (error) {
             console.error('getEmployeeById service error', error)

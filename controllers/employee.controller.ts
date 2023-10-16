@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express'
 import employeeServices from '../services/employee.services'
+import type IArea from 'interfaces/area.interface'
 
 const employeeController = {
     create_employee: async (req: Request, res: Response) => {
@@ -13,9 +14,12 @@ const employeeController = {
     },
     edit_employee: async (req: Request, res: Response) => {
         try {
+            const { newEmployee, newArea, oldArea } = req.body
             const editedEmployee = await employeeServices.editEmployee(
                 req.params.id,
-                req.body
+                newEmployee,
+                newArea,
+                oldArea
             )
             if (editedEmployee === null)
                 throw new Error('Error editing employee')
@@ -27,8 +31,10 @@ const employeeController = {
     },
     delete_employee: async (req: Request, res: Response) => {
         try {
+            const area: IArea = req.query.area as unknown as IArea
             const employeeDeleted = await employeeServices.deleteEmployee(
-                req.params.id
+                req.params.id,
+                area
             )
             if (employeeDeleted) {
                 res.status(204).send()
