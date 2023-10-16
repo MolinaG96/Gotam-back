@@ -66,6 +66,16 @@ const employeeController = {
             res.sendStatus(500)
         }
     },
+    get_employee_by_dni: async (req: Request, res: Response) => {
+        try {
+            const dni = parseInt(req.params.dni, 10)
+            const employee = await employeeServices.getEmployeeByDni(dni)
+            res.status(200).send(employee)
+        } catch (error) {
+            console.error('get employee by dni controller error', error)
+            res.sendStatus(500)
+        }
+    },
     get_all_employees_by_area: async (_req: Request, res: Response) => {
         try {
             const employeesByArea =

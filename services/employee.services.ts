@@ -1,7 +1,7 @@
-import type IArea from 'interfaces/area.interface'
+import type IArea from '../interfaces/area.interface'
 import Area from '../models/area'
 import Employee from '../models/employee'
-import type IEmployee from 'interfaces/employee.interface'
+import type IEmployee from '../interfaces/employee.interface'
 
 const employeeServices = {
     createEmployee: async (employee: IEmployee) => {
@@ -90,6 +90,16 @@ const employeeServices = {
             return employee
         } catch (error) {
             console.error('getEmployeeById service error', error)
+            throw error
+        }
+    },
+    getEmployeeByDni: async (dni: number) => {
+        try {
+            const employee = await Employee.findOne({ dni })
+
+            return employee
+        } catch (error) {
+            console.error('getEmployeeByDni service error', error)
             throw error
         }
     },

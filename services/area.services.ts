@@ -74,7 +74,16 @@ const areaServices = {
     },
     getAreaById: async (id: string) => {
         try {
-            const areas = await Area.find({ _id: id })
+            const areas = await Area.findOne({ _id: id })
+            return areas
+        } catch (error) {
+            console.error('getAreaById service error', error)
+            throw error
+        }
+    },
+    getAreaByAreaName: async (area: string) => {
+        try {
+            const areas = await Area.findOne({ area })
             return areas
         } catch (error) {
             console.error('getAreaById service error', error)
