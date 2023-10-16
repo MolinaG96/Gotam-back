@@ -73,6 +73,15 @@ const areaController = {
             res.sendStatus(500)
         }
     },
+    get_area_by_area_name: async (req: Request, res: Response) => {
+        try {
+            const area = await areaServices.getAreaByAreaName(req.params.area)
+            res.status(200).send(area)
+        } catch (error) {
+            console.error('get area by area name controller error', error)
+            res.sendStatus(500)
+        }
+    },
     get_area_by_employee_id: async (req: Request, res: Response) => {
         try {
             const area = await areaServices.getAreaByEmployeeId(req.params.id)
