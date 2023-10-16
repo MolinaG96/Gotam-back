@@ -16,7 +16,7 @@ const areaController = {
             const areaEdited = await areaServices.editArea(
                 req.body._id,
                 req.body.area,
-                req.body.employees
+                req.body.employee
             )
             if (areaEdited === null) throw new Error('Error editing area')
             res.status(201).send(areaEdited)
@@ -25,13 +25,30 @@ const areaController = {
             res.sendStatus(500)
         }
     },
+    edit_area_name: async (req: Request, res: Response) => {
+        try {
+            const areaEdited = await areaServices.editAreaName(
+                req.body._id,
+                req.body.area
+            )
+            if (areaEdited === null) throw new Error('Error editing area')
+            res.status(201).send(areaEdited)
+        } catch (error) {
+            console.error('edit area name controller error', error)
+            res.sendStatus(500)
+        }
+    },
     delete_area: async (req: Request, res: Response) => {
         try {
             const areaDeleted = await areaServices.deleteArea(req.params.id)
-            if (areaDeleted) {
+            if (typeof areaDeleted === 'number' && areaDeleted > 0) {
+                res.status(200).send(
+                    `Le quedan ${areaDeleted} empleados que eliminar antes de poder eliminar el área`
+                )
+            } else if (areaDeleted === true) {
                 res.status(204).send()
             } else {
-                res.status(404).send({ message: 'Area not found' })
+                res.status(404).send({ message: 'Área no encontrada' })
             }
         } catch (error) {
             console.error('delete area controller error', error)
@@ -53,6 +70,15 @@ const areaController = {
             res.status(200).send(area)
         } catch (error) {
             console.error('get area by id controller error', error)
+            res.sendStatus(500)
+        }
+    },
+    get_area_by_employee_id: async (req: Request, res: Response) => {
+        try {
+            const area = await areaServices.getAreaByEmployeeId(req.params.id)
+            res.status(200).send(area)
+        } catch (error) {
+            console.error('get area by employee id controller error', error)
             res.sendStatus(500)
         }
     },
