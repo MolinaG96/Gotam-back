@@ -15,7 +15,7 @@ const areaServices = {
         try {
             const editedArea = await Area.findOneAndUpdate(
                 { _id: id },
-                { area: newArea, $push: { employees: employee } },
+                { area: newArea.toLowerCase(), $push: { employees: employee } },
                 {
                     new: true,
                     runValidators: true,
@@ -32,7 +32,7 @@ const areaServices = {
         try {
             const editedArea = await Area.findOneAndUpdate(
                 { _id: id },
-                { area: newArea },
+                { area: newArea.toLowerCase() },
                 {
                     new: true,
                     runValidators: true,
@@ -83,7 +83,7 @@ const areaServices = {
     },
     getAreaByAreaName: async (area: string) => {
         try {
-            const areas = await Area.findOne({ area })
+            const areas = await Area.findOne({ area: area.toLowerCase() })
             return areas
         } catch (error) {
             console.error('getAreaById service error', error)

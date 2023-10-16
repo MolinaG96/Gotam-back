@@ -43,7 +43,7 @@ const areaController = {
             const areaDeleted = await areaServices.deleteArea(req.params.id)
             if (typeof areaDeleted === 'number' && areaDeleted > 0) {
                 res.status(200).send(
-                    `Le quedan ${areaDeleted} empleados que eliminar antes de poder eliminar el área`
+                    `Elimine todos los empleados para poder eliminar el area. Empleados restantes: ${areaDeleted}`
                 )
             } else if (areaDeleted === true) {
                 res.status(204).send()
