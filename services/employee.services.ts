@@ -23,7 +23,7 @@ const employeeServices = {
         try {
             if (newArea !== oldArea) {
                 const editOldArea = await Area.findOne({ area: oldArea })
-                if (editOldArea != null) {
+                if (editOldArea !== null) {
                     editOldArea.employees = editOldArea.employees.filter(
                         (employee) => employee._id.toString() !== id
                     )
@@ -55,7 +55,7 @@ const employeeServices = {
     deleteEmployee: async (id: string, area: IArea) => {
         try {
             const employeeArea = await Area.findOne({ _id: area._id })
-            if (employeeArea != null) {
+            if (employeeArea !== null) {
                 employeeArea.employees = employeeArea.employees.filter(
                     (employee) => employee._id.toString() !== id
                 )

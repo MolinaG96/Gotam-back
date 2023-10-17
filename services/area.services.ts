@@ -47,7 +47,7 @@ const areaServices = {
     deleteArea: async (id: string) => {
         try {
             const area = await Area.findOne({ _id: id })
-            if (area != null) {
+            if (area !== null) {
                 if (area.employees.length > 0) {
                     return area.employees.length
                 }
