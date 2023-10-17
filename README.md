@@ -112,7 +112,8 @@ FAST-DELIVERY-BACK
 
 ## models
 
-![Alt text]([image.png](https://cdn.discordapp.com/attachments/1161545327720005782/1163818545751277638/image.png?ex=6540f57c&is=652e807c&hm=ede1884a9c255e5db20cd484913693179a36bedf1acdf8919215bdbb6bc0fff3&))
+![Alt text](https://cdn.discordapp.com/attachments/1161545327720005782/1163818545751277638/image.png?ex=6540f57c&is=652e807c&hm=ede1884a9c255e5db20cd484913693179a36bedf1acdf8919215bdbb6bc0fff3&)
+
 
 ## Routes
 
